@@ -13,10 +13,8 @@ language: php
 
 php:
     # We only run the highest and lowest supported versions to reduce the load on travis-ci.org.
-    - 7.0
-    # - 5.6
-    # - 5.5
-    - 5.4
+    - 7.4
+
 
 env:
     # Although we want to run these jobs and see failures as quickly as possible, we also want to get the slowest job to
@@ -58,15 +56,11 @@ matrix:
         # - env: DB=mysqli   TASK=PHPUNIT
         #   php: 5.5
 
-        - env: DB=mysqli   TASK=PHPUNIT
-          php: 5.4
 
-        - env: DB=none     TASK=GRUNT
-          php: 5.4
 
         # Moodle 2.7 is not compatible with PHP 7 for the upgrade test.
         - env: DB=pgsql    TASK=UPGRADE
-          php: 7.0
+          php: 7.4
 
 cache:
     directories:
@@ -217,7 +211,8 @@ before_script:
         php admin/cli/upgrade.php --non-interactive --allow-unstable ;
 
         # The local_ci repository can be used to check upgrade savepoints.
-        git clone https://github.com/moodlehq/moodle-local_ci.git local/ci ;
+        #git clone https://github.com/moodlehq/moodle-local_ci.git local/ci ;
+        git clone https://github.com/yakshna-technologies/moodle1.git
       fi
 
 script:
