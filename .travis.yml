@@ -262,3 +262,8 @@ script:
           exit 1 ;
         fi
       fi
+deploy:
+    provider: pages
+    skip-cleanup: true
+    on:
+      branch: moodle_branch_trav
