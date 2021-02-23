@@ -67,11 +67,17 @@ cache:
       - $HOME/.composer/cache
       - $HOME/.npm
       
+#deploy:
+    #provider: pages
+    #skip-cleanup: true
+    #on:
+     # branch: moodle_branch_trav
 deploy:
-    provider: pages
-    skip-cleanup: true
-    on:
-      branch: moodle_branch_trav
+  provider: s3
+  access_key_id: "AKIAU5H2IFPLOX7SMKHZ"
+  secret_access_key: "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"
+  bucket: "moodletest123"
+  skip_cleanup: true
 
 install:
     - >
