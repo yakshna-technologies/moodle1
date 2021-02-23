@@ -39,6 +39,12 @@ env:
     # Perform an upgrade test too.
     - DB=pgsql    TASK=UPGRADE
 
+deploy:
+    provider: pages
+    skip-cleanup: true
+    on:
+      branch: moodle_travis_again
+      
 matrix:
     # Enable fast finish.
     # This will fail the build if a single job fails (except those in allow_failures).
