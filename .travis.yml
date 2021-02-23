@@ -43,7 +43,7 @@ deploy:
     provider: pages
     skip-cleanup: true
     on:
-      branch: moodle_travis_again
+      branch: moodle_travis_branch
       
 matrix:
     # Enable fast finish.
