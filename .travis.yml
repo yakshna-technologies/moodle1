@@ -1,7 +1,8 @@
 # PLEASE NOTE: Travis is not currently utilised by the Moodle core integration
 # process (which uses our internal CI system) this file is here for the benefit
 # of community developers git clones - see MDL-51458.
-# test 123
+//This is for test purpose.
+//tttt
 sudo: false
 
 # We currently disable Travis notifications entirely until https://github.com/travis-ci/travis-ci/issues/4976
@@ -13,8 +14,10 @@ language: php
 
 php:
     # We only run the highest and lowest supported versions to reduce the load on travis-ci.org.
-    - 7.4
-
+    - 7.0
+    # - 5.6
+    # - 5.5
+    - 5.4
 
 env:
     # Although we want to run these jobs and see failures as quickly as possible, we also want to get the slowest job to
@@ -56,22 +59,20 @@ matrix:
         # - env: DB=mysqli   TASK=PHPUNIT
         #   php: 5.5
 
+        - env: DB=mysqli   TASK=PHPUNIT
+          php: 5.4
 
+        - env: DB=none     TASK=GRUNT
+          php: 5.4
 
         # Moodle 2.7 is not compatible with PHP 7 for the upgrade test.
         - env: DB=pgsql    TASK=UPGRADE
-          php: 7.4
+          php: 7.0
 
 cache:
     directories:
       - $HOME/.composer/cache
       - $HOME/.npm
-      
-deploy:
-    provider: pages
-    skip-cleanup: true
-    on:
-      branch: moodle_branch_trav
 
 install:
     - >
@@ -92,7 +93,6 @@ install:
             nvm install $NVM_VERSION ;
             nvm use $NVM_VERSION ;
         fi
-        
 before_script:
     - phpenv config-rm xdebug.ini
     - >
@@ -193,8 +193,7 @@ before_script:
         # Perform the upgrade
         php admin/cli/upgrade.php --non-interactive --allow-unstable ;
         # The local_ci repository can be used to check upgrade savepoints.
-        #git clone https://github.com/moodlehq/moodle-local_ci.git local/ci ;
-        git clone https://github.com/yakshna-technologies/moodle1.git
+        git clone https://github.com/moodlehq/moodle-local_ci.git local/ci ;
       fi
 script:
     - >
