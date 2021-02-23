@@ -17,6 +17,15 @@ env:
    
     - DB=mysqli   TASK=PHPUNIT
 
+    # Run CI Tests without running PHPUnit.
+    - DB=none     TASK=CITEST
+
+    # Run unit tests on Postgres
+    - DB=pgsql    TASK=PHPUNIT
+
+    # Perform an upgrade test too.
+    - DB=pgsql    TASK=UPGRADE
+
 
 cache:
     directories:
