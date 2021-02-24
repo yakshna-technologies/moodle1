@@ -14,7 +14,7 @@ language: php
 
 php:
     # We only run the highest and lowest supported versions to reduce the load on travis-ci.org.
-    - 7.4
+    - 5.6
    
 
 env:
@@ -45,7 +45,7 @@ matrix:
 
     include:
           # Run grunt/npm install on highest version ('node' is an alias for the latest node.js version.)
-        - php: 7.4
+        - php: 5.6
           env: DB=none     TASK=GRUNT   NVM_VERSION='lts/carbon'
 
     exclude:
@@ -58,7 +58,7 @@ matrix:
         #   php: 5.5
 
         - env: DB=mysqli   TASK=PHPUNIT
-          php: 7.4
+          php: 5.6
 
        
 
