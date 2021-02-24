@@ -1,40 +1,36 @@
-# PLEASE NOTE: Travis is not currently utilised by the Moodle core integration
-# process (which uses our internal CI system) this file is here for the benefit
-# of community developers git clones - see MDL-51458.
-#This is to test the travis build again
-
-sudo: false
-
-# We currently disable Travis notifications entirely until https://github.com/travis-ci/travis-ci/issues/4976
-# is fixed.
-notifications:
-  email: true
+# Config file for https://travis-ci.org/
 
 language: php
 
+# Define the php versions against we want to test our code
 php:
-    # We only run the highest and lowest supported versions to reduce the load on travis-ci.org.
-    - 5.6
-   
+- 7.1
+- 7.2
 
-env:
-    # Although we want to run these jobs and see failures as quickly as possible, we also want to get the slowest job to
-    # start first so that the total run time is not too high.
-    #
-    # We only run MySQL on PHP 5.6, so run that first.
-    # CI Tests should be second-highest in priority as these only take <= 60 seconds to run under normal circumstances.
-    # Postgres is significantly is pretty reasonable in its run-time.
+# Note: Code coverage requires php-xDebug extension enabled on CI server
 
-   
-    # Run CI Tests without running PHPUnit.
-    - DB=none     TASK=CITEST
+install:
+- travis_retry composer install --no-interaction --no-suggest
 
-    
+# Testing the app (see phpunit.xml) for configs, generating Code Coverage report
+script:
+- composer test -- --coverage-clover=coverage.xml
 
-deploy:
-    provider: pages
-    skip-cleanup: true
-    on:
-      branch: moodle_travis_branch
-      
+#after_script:
 
+after_success:
+# Submit coverage report to https://codecov.io
+- bash <(curl -s https://codecov.io/bash)
+
+#after_failure:
+
+# Monitor only these branches
+branches:
+  only:
+  - master
+  - master_branch_new
+
+# You can delete the cache using travis-ci web interface
+cache:
+  directories:
+  - $HOME/.composer/cache
