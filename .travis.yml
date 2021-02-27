@@ -1,27 +1,7 @@
-# Config file for https://travis-ci.org/
-
 language: php
-
-# Define the php versions against we want to test our code
 php:
-- 7.1
-
-
-# Note: Code coverage requires php-xDebug extension enabled on CI server
-deploy:
-  provider: s3
-  access_key_id: "$AWS_KEY"
-  secret_access_key: "$AWS_SECRET"
-  bucket: "moodletest123"
-  skip_cleanup: true
-  acl: public_read
-  local_dir: public
-
-
-
-
-
-# You can delete the cache using travis-ci web interface
-cache:
-  directories:
-  - $HOME/.composer/cache
+  - '5.4'
+  - '5.6'
+  - '7.0'
+  - hhvm # on Trusty only
+  - nightly
