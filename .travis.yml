@@ -1,4 +1,10 @@
 language: php
-
 php:
-  - nightly
+  - 7.4
+ 
+ install: php vendor/vendors.php
+
+before_install: phpenv config-add myconfig.ini
+
+before_script: composer require atoum/atoum
+script: vendor/bin/atoum
