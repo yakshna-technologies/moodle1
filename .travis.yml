@@ -1,6 +1,4 @@
 language: php
 php:
   - 7.4
- 
- install: php vendor/vendors.php
 
