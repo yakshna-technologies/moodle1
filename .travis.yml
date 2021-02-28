@@ -2,5 +2,22 @@ language: php
 php:
   - 7.4
 
-before_install: phpenv config-add myconfig.ini
+env:
+  # Define a V3 flag to conditionally run commands.
+  - MOODLE_BRANCH=MOODLE_31_STABLE DB=pgsql V3=false
+  - MOODLE_BRANCH=MOODLE_32_STABLE DB=mysqli V3=true
 
+before_install:
+  # You must install the correct version of this project:
+  - if [ "$V3" = false ]; then composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^1; fi
+  - if [ "$V3" = true ]; then composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3; fi
+
+script:
+  # Example of a Version 3 execution:
+  - if [ "$V3" = true ]; then ...; fi
+
+  # Example of a Version 1 execution:
+  - if [ "$V3" = false ]; then ...; fi
+
+  # And of course some exist in both versions, so just call it normally:
+  - moodle-plugin-ci phpunit
